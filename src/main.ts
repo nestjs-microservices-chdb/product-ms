@@ -7,12 +7,13 @@ import { envs } from './config/envs.js';
 
 async function bootstrap() {
   const logger = new Logger('Main');
+
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
-      transport: Transport.TCP,
+      transport: Transport.NATS,
       options: {
-        port: envs.port ?? 3000,
+        servers: envs.natsServers
       }
     }
   );
